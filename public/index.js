@@ -148,3 +148,79 @@ const actors = [{
 console.log(truckers);
 console.log(deliveries);
 console.log(actors);
+
+for(var i=0; i<deliveries.length;i++) {
+	var priceprereduc = distance_component(deliveries[i].distance, deliveries[i].truckerId) + volume_component(deliveries[i].volume, deliveries[i].truckerId);
+	console.log(priceprereduc);
+	var price = (priceprereduc)*sale(deliveries[i].volume);
+	console.log(price);
+}
+
+function distance_component(nb_kilometre, id_trucker) {
+	var pricekm = -1;
+	for(var j =0; j<truckers.length;j++) {
+		if(id_trucker==truckers[j].id) {
+			pricekm = truckers[j].pricePerKm;
+		}
+	}
+	return nb_kilometre*pricekm;
+}
+
+
+function volume_component(vol_price, id_trucker) {
+	var pricem3 = -1;
+	for(var j =0; j<truckers.length;j++) {
+		if(id_trucker==truckers[j].id) {
+			pricem3 = truckers[j].pricePerVolume;
+		}
+	}
+	return vol_price*pricem3;
+}
+
+function sale(m3) {
+	if(m3>5 &&m3<10) { 
+		console.log("(Reduc :0.1)");
+		return 0.9; 
+	}
+	if(m3>10 &&m3<25) { 
+		console.log("(Reduc : 0.3)");
+		return 0.7; 
+	}
+	if(m3>25) { 
+		console.log("(Reduc : 0.5)");
+		return 0.5; 
+	}
+	else { 
+	console.log("(Pas de reduc)");
+	return 1; 
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
