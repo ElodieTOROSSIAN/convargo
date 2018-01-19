@@ -159,7 +159,10 @@ for(var i=0; i<deliveries.length;i++) {
 	deliveries[i].commission.insurance = 0.5*com; 
 	deliveries[i].commission.treasury = calc_treasury(deliveries[i].distance); 
 	deliveries[i].commission.convargo = com - deliveries[i].commission.insurance - deliveries[i].commission.treasury; 
-	
+	if(deliveries[i].options.deductibleReduction) {
+	deliveries[i].price+= deliveries[i].volume;
+	deliveries[i].commission.convargo += deliveries[i].volume;
+	}
 }
 
 
@@ -203,10 +206,8 @@ function sale(m3) {
 }
 
 function calc_treasury(dist) {
-	return Math.trunc(dist/500);
+	return Math.trunc(dist/500)+1;
 }
-
-
 
 
 
