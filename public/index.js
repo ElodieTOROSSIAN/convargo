@@ -154,7 +154,14 @@ for(var i=0; i<deliveries.length;i++) {
 	console.log(priceprereduc);
 	var price = (priceprereduc)*sale(deliveries[i].volume);
 	console.log(price);
+	deliveries[i].price = price;
+	var com = 0.3* price; 
+	deliveries[i].commission.insurance = 0.5*com; 
+	deliveries[i].commission.treasury = calc_treasury(deliveries[i].distance); 
+	deliveries[i].commission.convargo = com - deliveries[i].commission.insurance - deliveries[i].commission.treasury; 
+	
 }
+
 
 function distance_component(nb_kilometre, id_trucker) {
 	var pricekm = -1;
@@ -165,7 +172,6 @@ function distance_component(nb_kilometre, id_trucker) {
 	}
 	return nb_kilometre*pricekm;
 }
-
 
 function volume_component(vol_price, id_trucker) {
 	var pricem3 = -1;
@@ -195,6 +201,11 @@ function sale(m3) {
 	return 1; 
 	}
 }
+
+function calc_treasury(dist) {
+	return Math.trunc(dist/500);
+}
+
 
 
 
