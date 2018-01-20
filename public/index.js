@@ -166,11 +166,23 @@ for(var i=0; i<deliveries.length;i++) {
 	
 	for(var k=0; k<actors.length; k++) {
 		if(deliveries[i].id == actors[k].deliveryId) {
-			actors[k].payment[0].amount = deliveries[i].price;
-			actors[k].payment[1].amount = deliveries[i].price - deliveries[i].commission.treasury - deliveries[i].commission.insurance - deliveries[i].commission.convargo;
-			actors[k].payment[2].amount = deliveries[i].commission.treasury;
-			actors[k].payment[3].amount = deliveries[i].commission.insurance;
-			actors[k].payment[4].amount = deliveries[i].commission.convargo;
+			for(var e =0; e<5;e++) {
+				if(actors[k].payment[e].who == 'shipper') {
+					actors[k].payment[e].amount = deliveries[i].price
+				}
+				if(actors[k].payment[e].who == 'trucker') {
+					actors[k].payment[e].amount = deliveries[i].price - deliveries[i].commission.treasury - deliveries[i].commission.insurance - deliveries[i].commission.convargo;
+				}
+				if(actors[k].payment[e].who == 'treasury') {
+					actors[k].payment[e].amount = deliveries[i].commission.treasury;
+				}
+				if(actors[k].payment[e].who == 'insurance') {
+					actors[k].payment[e].amount = deliveries[i].commission.insurance;
+				}
+				if(actors[k].payment[e].who == 'convargo') {
+					actors[k].payment[e].amount = deliveries[i].commission.convargo;
+				}
+			}
 		}
 	}
 }
