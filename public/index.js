@@ -163,6 +163,16 @@ for(var i=0; i<deliveries.length;i++) {
 	deliveries[i].price+= deliveries[i].volume;
 	deliveries[i].commission.convargo += deliveries[i].volume;
 	}
+	
+	for(var k=0; k<actors.length; k++) {
+		if(deliveries[i].id == actors[k].deliveryId) {
+			actors[k].payment[0].amount = deliveries[i].price;
+			actors[k].payment[1].amount = deliveries[i].price - deliveries[i].commission.treasury - deliveries[i].commission.insurance - deliveries[i].commission.convargo;
+			actors[k].payment[2].amount = deliveries[i].commission.treasury;
+			actors[k].payment[3].amount = deliveries[i].commission.insurance;
+			actors[k].payment[4].amount = deliveries[i].commission.convargo;
+		}
+	}
 }
 
 
